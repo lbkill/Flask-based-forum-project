@@ -156,12 +156,11 @@ def user_setting():
 # 更新设置内容
 @csrf_required
 def user_update():
-    token = new_csrf_token()
     form = request.form
     u = current_user()
     id = u.id
     User.update(id, **form)
-    return render_template('user_setting.html', user=u, token=token)
+    return redirect(url_for('.user_setting'))
 
 
 @main.route('/image/add', methods=['POST'])
@@ -195,7 +194,6 @@ def image(filename):
 @main.route("/change_password", methods=['POST'])
 @csrf_required
 def password_change():
-    token = new_csrf_token()
     u = current_user()
     form = request.form.to_dict()
     old_pass = u.salted_password(form['old_pass'])
@@ -203,7 +201,7 @@ def password_change():
         form['password'] = User.salted_password(form['new_pass'])
         u = User.update(u.id,**form)
         result = '修改成功'
-        return render_template('user_setting.html', user=u, result=result, token = token)
+        return redirect(url_for('.user_setting', result=result))
     else:
         result = '原密码错误'
-        return render_template('user_setting.html', user=u, result=result)
+        return redirect(url_for('.user_setting', result=result))
