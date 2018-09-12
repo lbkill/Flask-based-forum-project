@@ -129,9 +129,9 @@ def profile():
         )
 
 
-@main.route('/user_file')
-def user_detail():
-    u = current_user()
+@main.route('/user/<int:id>')
+def user_detail(id):
+    u = User.one(id=id)
     if u is None:
         return redirect(url_for('.index'))
     else:
