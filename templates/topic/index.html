@@ -15,7 +15,7 @@
         <div id="sidebar">
             <div class="panel">
                 <span class="col_fade">
-                    <a class="dark" href="{{ url_for('index.user_detail') }}">
+                    <a class="dark" href="{{ url_for('index.user_detail',id=user.id) }}">
                         个人信息
                     </a>
                 </span>
@@ -28,11 +28,11 @@
                 <div class="inner">
                     <div class="user_card">
                         <div>
-                            <a class="user_avatar" href="{{ url_for('index.user_detail') }}">
+                            <a class="user_avatar" href="{{ url_for('index.user_detail', id=user.id) }}">
                                 <img src="{{ user.image }}" title="{{ user.username }}">
                             </a>
                             <span class="user_name">
-                                <a class="dark" href="{{ url_for('index.user_detail') }}">
+                                <a class="dark" href="{{ url_for('index.user_detail', id=user.id) }}">
                                     {{ user.username }}
                                 </a>
                             </span>
