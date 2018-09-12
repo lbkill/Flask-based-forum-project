@@ -144,8 +144,8 @@ def user_detail():
 
 @main.route('/user/setting')
 def user_setting():
-    u = current_user()
     token = new_csrf_token()
+    u = current_user()
     if u is None:
         abort(404)
     else:
@@ -154,12 +154,13 @@ def user_setting():
 
 @main.route('/user/update', methods=['POST'])
 # 更新设置内容
+@csrf_required
 def user_update():
+    token = new_csrf_token()
     form = request.form
     u = current_user()
     id = u.id
     User.update(id, **form)
-    token = new_csrf_token()
     return render_template('user_setting.html', user=u, token=token)
 
 
@@ -194,15 +195,15 @@ def image(filename):
 @main.route("/change_password", methods=['POST'])
 @csrf_required
 def password_change():
-    u = current_user()
     token = new_csrf_token()
+    u = current_user()
     form = request.form.to_dict()
     old_pass = u.salted_password(form['old_pass'])
     if old_pass == u.password:
         form['password'] = User.salted_password(form['new_pass'])
         u = User.update(u.id,**form)
         result = '修改成功'
-        return render_template('user_setting.html', user=u, token=token, result=result)
+        return render_template('user_setting.html', user=u, result=result, token = token)
     else:
         result = '原密码错误'
-        return render_template('user_setting.html', user=u, token=token, result=result)
+        return render_template('user_setting.html', user=u, result=result)
