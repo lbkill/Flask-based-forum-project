@@ -97,7 +97,8 @@
             <div class="header">
                 <span class="col_fade">最近参与的话题</span>
             </div>
-                {% for t in ts %}
+                {% for r in ts %}
+                {% set t = r.topic() %}
                 <div class="cell">
                     <a class="user_avatar pull-left" href="{{ url_for('index.profile') }}">
                     <img src="{{ t.user().image }}" title="{{ t.user().username }}">

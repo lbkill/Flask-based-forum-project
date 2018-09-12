@@ -135,9 +135,9 @@ def user_detail():
     if u is None:
         return redirect(url_for('.index'))
     else:
-        ms_recent = created_topic(u.id)
+        ms_recent = Topic.all(user_id=u.id)
         ms_sort = sorted(ms_recent, key=lambda Topic: Topic.updated_time, reverse=True)
-        replies = replied_topic(u.id)
+        replies = Reply.all(user_id=u.id)
         replies_sort = sorted(replies, key=lambda Reply: Reply.updated_time, reverse=True)
         return render_template('topic/person_file.html', user=u, ms=ms_sort, ts=replies_sort)
 
