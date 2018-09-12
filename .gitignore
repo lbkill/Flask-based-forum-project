@@ -1,5 +1,5 @@
 .idea
-gua.log.txt
+log.txt
 *.pyc
 secret.py
 database_secret.conf

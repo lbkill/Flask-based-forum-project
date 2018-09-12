@@ -168,8 +168,6 @@ def avatar_add():
     # flask 帮我拿到了file文件，已经不是二进制了
     file = request.files['avatar']
 
-    # ../../root/.ssh/authorized_keys
-    # filename = secure_filename(file.filename)
     suffix = file.filename.split('.')[-1]
     # 保存文件名是用扩展名而不是原文件名，为的是防止有人利用非法路径
     filename = '{}.{}'.format(str(uuid.uuid4()), suffix)
@@ -184,11 +182,7 @@ def avatar_add():
 
 @main.route('/images/<filename>')
 def image(filename):
-    # 不要直接拼接路由，不安全，比如
-    # http://localhost:2000/images/..%5Capp.py
-    # path = os.path.join('images', filename)
-    # print('images path', path)
-    # return open(path, 'rb').read()
+
     return send_from_directory('images', filename)
 
 @main.route("/change_password", methods=['POST'])

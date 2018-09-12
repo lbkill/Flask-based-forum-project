@@ -63,5 +63,3 @@ def add():
     u = current_user()
     Topic.new(form, user_id=u.id)
     return redirect(url_for('.index'))
-
-
