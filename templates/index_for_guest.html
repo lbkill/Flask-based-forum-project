@@ -1,0 +1,90 @@
+{% extends "topic/base.html" %}
+{% block title %}论坛主页{% endblock %}
+{% block main %}
+
+    <div id="main">
+        <div id="sidebar">
+            <div class="panel">
+                <span class="col_fade">
+                    <a class="dark" href="">
+                        个人信息
+                    </a>
+                </span>
+                <span class="divider">/</span>
+                <span class="active">
+                    <a href="">
+                        设置
+                    </a>
+                </span>
+                <div class="inner">
+                    <div class="user_card">
+                        <div>
+                            <a class="user_avatar" href="">
+                                <img src="/images/3.jpg" title="guest">
+                            </a>
+                            <span class="user_name">
+                                <a class="dark" href="">
+                                    guest
+                                </a>
+                            </span>
+                        </div>
+                        <span class="signature">
+                                “ 这个人很懒，什么都没留下 ”
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="inner">
+                    <a href="/topic/new?board_id={{ bid }}" class="create_topic_btn">
+                        <span class="span-success">发布话题</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <div class="panel">
+                <div class="header">
+                    <a href="/topic"
+                       class="topic-tab current-tab">
+                        全部的帖子
+                    </a>
+
+                    {% for b in bs %}
+                        <a href="/topic?board_id={{ b.id }}"
+                           class="topic-tab current-tab">
+                            {{ b.title }}
+                        </a>
+                    {% endfor %}
+                </div>
+                <div class="inner post">
+                    <div class="topic_list">
+                        {% for t in ms %}
+                            <div class="cell">
+                                <div class="topic_title_wrapper">
+                                    <a class="topic_title" href="{{ url_for('topic.detail', id=t.id) }}">
+                                        {{ t.title }}
+                                    </a>
+                                    <span>{{ t.replies() | count }} / {{ t.views }}</span>
+{#                                    <!--<a class="topic_title" href="{{ url_for('topic.delete', id=t.id) }}">-->#}
+                                    <a class="topic_title" href="{{ url_for('topic.delete', id=t.id, token=token) }}">
+                                        删除
+                                    </a>
+
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var editor = new Editor();
+            editor.render($('.editor')[0]);
+        })();
+
+    </script>
+
+{% endblock %}

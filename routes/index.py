@@ -14,6 +14,7 @@ from flask import (
 )
 from werkzeug.utils import secure_filename
 
+from models.board import Board
 from models.reply import Reply
 from models.topic import Topic
 from models.user import User
@@ -40,10 +41,29 @@ main = Blueprint('index', __name__)
 
 
 @main.route("/")
+def index_for_guest():
+    # 访客模式所用
+    board_id = int(request.args.get('board_id', -1))
+    if board_id == -1:
+        ms = Topic.all()
+    else:
+        ms = Topic.all(board_id=board_id)
+    bs = Board.all()
+    u = current_user()
+    return render_template("index_for_guest.html", ms=ms, bs=bs, bid=board_id, user=u)
+
+
+# 单独写个用户设置，展示用户设置页面
+@main.route('/setting')
+def guest_setting():
+    u = current_user()
+    return render_template('guest_setting.html', user=u)
+
+
+@main.route("/index")
 def index():
     u = current_user()
     return render_template("index.html", user=u)
-
 
 @main.route("/register", methods=['POST'])
 def register():

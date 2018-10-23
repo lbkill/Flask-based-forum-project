@@ -11,12 +11,12 @@
                 <div class="inner">
                     <div class="user_card">
                         <div>
-                            <a class="user_avatar" href="{{ url_for('index.user_detail',id=user.id) }}">
-                                <img src="{{ user.image }}" title="{{ user.username }}">
+                            <a class="user_avatar" href="">
+                                <img src="/images/3.jpg" title="guest">
                             </a>
                             <span class="user_name">
                                 <a class="dark" href="">
-                                    {{ user.username }}
+                                    guest
                                 </a>
                             </span>
 
@@ -27,7 +27,7 @@
                             </div>
                             <div class="space clearfix"></div>
                             <span class="signature">
-                                {{ user.signature }}
+                                I am a guest
                             </span>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
             <div class="panel">
                 <div class="header">
                     <ul class="breadcrumb">
-                        <li><a href="{{ url_for('topic.index') }}">主页</a><span class="divider">/</span></li>
+                        <li><a href="">主页</a><span class="divider">/</span></li>
                         <li class="active">设置</li>
                     </ul>
                 </div>
@@ -58,7 +58,7 @@
                             <label class="control-label" for="name">用户名</label>
                             <div class="controls">
                                 <input class="input-xlarge readonly" id="name" name="name" size="30" type="text"
-                                        value="{{ user.username }}">
+                                        value="guest">
                             </div>
                         </div>
                         <div class="control-group">
